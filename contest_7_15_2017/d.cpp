@@ -1,56 +1,46 @@
 #include <iostream>
-#include <algorithm>
 #include <cstring>
+#include <algorithm>
 #include <cstdio>
-#include <vector>
 
 using namespace std;
 
+int wei[1010]; //重量==价值
 int dp[1010][1010];
-vector<int> price;
-
-void init()
+int max(int x, int y)
 {
-    memset(dp, 0, sizeof(dp));
-    // price.clear();
-    vector<int>().swap(price);
-    // price.shrink_to_fit();
+    if (x >= y)
+    {
+        return x;
+    }
+    else
+        return y;
 }
 
 int main()
 {
-    int num;
-    while (scanf("%d", &num) && num)
+    int n, i, j, ians;
+    while (scanf("%d", &n) && n)
     {
-        int max_index = 0, max_ele = -1;
-        init();
-        price.push_back(0);
-        for (int i = 1; i <= num; i++)
+        memset(dp, 0, sizeof(dp));
+        for (i = 1; i <= n; i++)
         {
-            int tmp_price;
-            scanf("%d", &tmp_price);
-            price.push_back(tmp_price);
-            if (price[i] > max_ele)
-            {
-                max_index = i;
-                max_ele = price[i];
-            }
+            scanf("%d", &wei[i]);
         }
-        price.erase(price.begin() + max_index);
-        int money;
-        scanf("%d", &money);
-        if (money < 5)
+        sort(wei + 1, wei + n + 1);
+        scanf("%d", &ians); //卡余额
+        if (ians < 5)
         {
-            cout << money << "\n";
+            cout << ians << "\n";
             continue;
         }
-        for (int i = 1; i <= num - 1; i++)
+        for (i = 1; i <= n - 1; i++)
         {
-            for (int j = 0; j <= money - 5; j++)
+            for (j = 0; j <= ians - 5; j++)
             {
-                if (j >= price[i])
+                if (j >= wei[i])
                 {
-                    dp[i][j] = max(dp[i - 1][j - price[i]] + price[i], dp[i - 1][j]);
+                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - wei[i]] + wei[i]);
                 }
                 else
                 {
@@ -58,7 +48,8 @@ int main()
                 }
             }
         }
-        cout << money - dp[num - 1][money - 5] - max_ele << "\n";
+
+        cout << ians - dp[n - 1][ians - 5] - wei[n] << "\n";
     }
     return 0;
 }
