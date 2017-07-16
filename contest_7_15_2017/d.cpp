@@ -58,14 +58,6 @@ int main()
                 }
             }
         }
-        for (int i = 0; i <= num - 1; i++)
-        {
-            for (int j = 0; j <= money - 5; j++)
-            {
-                cout << dp[i][j] << " ";
-            }
-            cout << "\n";
-        }
         cout << money - dp[num - 1][money - 5] - max_ele << "\n";
     }
     return 0;
