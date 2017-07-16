@@ -6,18 +6,6 @@
 
 using namespace std;
 
-bool exist(vector<int> v, int e)
-{
-    for (int i = 0; i < v.size(); i++)
-    {
-        if (v[i] == e)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
 int main()
 {
     int num;
