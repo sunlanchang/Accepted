@@ -11,16 +11,7 @@ int volume[1010];
 
 void init(int num_bone, int max_v)
 {
-    // for (int i = 0; i <= num_bone; i++)
-    // {
-    //     for (int j = 0; j <= max_v; j++)
-    //     {
-    //         dp[i][j] = 0;
-    //     }
-    // }
     memset(dp, 0, sizeof(dp));
-    // memset(value, 0, sizeof(value));
-    // memset(volume, 0, sizeof(volume));
 }
 
 int main()
@@ -52,17 +43,8 @@ int main()
                 {
                     dp[i][j] = dp[i - 1][j];
                 }
-                // dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - v[i]] + val[i]);
             }
         }
-        // for (int i = 0; i <= num_bone; i++)
-        // {
-        //     for (int j = 0; j <= max_v; j++)
-        //     {
-        //         cout << dp[i][j] << "   ";
-        //     }
-        //     cout << "\n";
-        // }
         cout << dp[num_bone][max_v] << "\n";
     }
     return 0;
