@@ -1,55 +1,68 @@
 #include <iostream>
-#include <cstring>
-#include <algorithm>
-#include <cstdio>
-
+const int N = 110;
 using namespace std;
+int n, m;
 
-int wei[1010]; //重量==价值
-int dp[1010][1010];
-int max(int x, int y)
+struct Rice
 {
-    if (x >= y)
+    int price;
+    int weight;
+    int number;
+} rice[N];
+int dp[N];
+//完全背包
+void CompletePack(int cost, int weight)
+{
+    for (int i = cost; i <= n; i++)
     {
-        return x;
+        dp[i] = max(dp[i], dp[i - cost] + weight);
     }
-    else
-        return y;
+}
+//01背包
+void ZeroOnePack(int cost, int weight)
+{
+    for (int i = n; i >= cost; i--)
+    {
+        dp[i] = max(dp[i], dp[i - cost] + weight);
+    }
+}
+
+//多重背包
+void MultiplePack(int cost, int weight, int number)
+{
+    //如果大于等于金额，就按完全背包处理（此时相当于不限定袋数）
+    if (cost * number >= n)
+    {
+        CompletePack(cost, weight);
+        return;
+    }
+    int k = 1;
+    while (k < number)
+    {
+        ZeroOnePack(k * cost, k * weight);
+        number -= k;
+        k *= 2;
+    }
+    ZeroOnePack(number * cost, number * weight);
 }
 
 int main()
 {
-    int n, i, j, ians;
-    while (scanf("%d", &n) && n)
+    int _case;
+    scanf("%d", &_case);
+    while (_case--)
     {
+        scanf("%d%d", &n, &m);
         memset(dp, 0, sizeof(dp));
-        for (i = 1; i <= n; i++)
+        for (int i = 0; i < m; i++)
         {
-            scanf("%d", &wei[i]);
+            scanf("%d%d%d", &rice[i].price, &rice[i].weight, &rice[i].number);
         }
-        sort(wei + 1, wei + n + 1);
-        scanf("%d", &ians); //卡余额
-        if (ians < 5)
+        for (int i = 0; i < m; i++)
         {
-            cout << ians << "\n";
-            continue;
+            MultiplePack(rice[i].price, rice[i].weight, rice[i].number);
         }
-        for (i = 1; i <= n - 1; i++)
-        {
-            for (j = 0; j <= ians - 5; j++)
-            {
-                if (j >= wei[i])
-                {
-                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - wei[i]] + wei[i]);
-                }
-                else
-                {
-                    dp[i][j] = dp[i - 1][j];
-                }
-            }
-        }
-
-        cout << ians - dp[n - 1][ians - 5] - wei[n] << "\n";
+        printf("%d\n", dp[n]);
     }
     return 0;
 }

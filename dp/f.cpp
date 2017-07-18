@@ -33,11 +33,6 @@ int main()
             {
                 dp[j] = max(dp[j], dp[j - volume[i]] + value[i]);
             }
-            for (int i = 0; i <= 5; i++)
-            {
-                cout << dp[i] << " ";
-            }
-            cout << "\n";
         }
         cout << dp[v] << endl;
     }
