@@ -1,54 +1,64 @@
 #include <iostream>
-#include <cstdio>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <cstdio>
 
 using namespace std;
 
-const int N = 300010;
-int dp[N];
-int v[110], num[110];
-int n;
-void ZeroOnePack(int w, int v, int W)
+const int INF = 0x3f3f3f3f;
+
+int cost[2020];
+int value[2020];
+int dp[50050];
+
+void init(int v)
 {
-    for (int i = W; i >= w; i--)
-        dp[i] = max(dp[i], dp[i - w] + v);
-}
-void CompletePack(int w, int v, int W)
-{
-    for (int i = w; i <= W; i++)
-        dp[i] = max(dp[i], dp[i - w] + v);
-}
-void MultiplePack(int w, int v, int num, int W)
-{
-    if (w * num >= W)
-        CompletePack(w, v, W);
-    else
+    memset(cost, 0, sizeof(cost));
+    memset(value, 0, sizeof(value));
+    for (int i = 1; i <= v; i++)
     {
-        int k = 1;
-        while (k <= num)
-        {
-            ZeroOnePack(k * w, k * v, W);
-            num -= k;
-            k *= 2;
-        }
-        ZeroOnePack(num * w, num * v, W);
+        dp[i] = -INF;
     }
 }
+
 int main()
 {
-    while (scanf("%d", &n), n >= 0)
+    int N;
+    scanf("%d", &N);
+    while (N--)
     {
-        int W = 0;
-        for (int i = 1; i <= n; i++)
-            scanf("%d%d", &v[i], &num[i]), W += v[i] * num[i];
-        memset(dp, 0, sizeof dp);
-        for (int i = 1; i <= n; i++)
-            MultiplePack(v[i], v[i], num[i], W / 2);
-        int a = dp[W / 2], b = W - a;
-        if (a < b)
-            swap(a, b);
-        printf("%d %d\n", a, b);
+        int M, V;
+        scanf("%d%d", &M, &V);
+        init(V);
+        for (int i = 1; i <= M; i++)
+        {
+            scanf("%d%d", &cost[i], &value[i]);
+        }
+        dp[0] = 0;
+        for (int i = 1; i <= M; i++)
+        {
+            for (int j = cost[i]; j <= V; j++)
+            {
+                if (j >= cost[i])
+                {
+                    dp[j] = max(dp[j - cost[i]] + value[i], dp[j]);
+                }
+            }
+            // for (int i = 0; i <= N; i++)
+            // {
+            //     cout << dp[i] << " ";
+            // }
+            // cout << "\n";
+        }
+        if (dp[V] < 0)
+        {
+            cout << "NO"
+                 << "\n";
+        }
+        else
+        {
+            cout << dp[V] << "\n";
+        }
     }
     return 0;
 }
