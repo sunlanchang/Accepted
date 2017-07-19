@@ -33,7 +33,8 @@ int main()
         memset(cables, 0, sizeof(cables));
         for (int i = 0; i < N; i++)
         {
-            scanf("%lf", &cables[i]);
+            //输入double必须用%lf
+            scanf("%f", &cables[i]);
             sum += cables[i];
         }
         double l = 0, r = sum;
