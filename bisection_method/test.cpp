@@ -1,42 +1,27 @@
 #include <iostream>
-#include <algorithm>
+#include <cmath>
 #include <cstring>
+#include <algorithm>
 #include <cstdio>
 
 using namespace std;
-
-const int MAX = 10010;
-
-int x[MAX];
-int y[MAX];
-int z[MAX];
-
 int main()
 {
-    int N;
-    while (~scanf("%d", &N))
+    int x[9] = {1, 2, 3, 4, 5, 6, 7, 8, 10};
+    int N = 9;
+    int num = 1, cur = 0, last = 0;
+    int mid = 3, i = 0;
+    while (i < N)
     {
-        memset(x, 0, sizeof(x));
-        memset(y, 0, sizeof(x));
-        memset(z, 0, sizeof(x));
-        for (int i = 0; i < N; i++)
+        if (x[cur] - x[last] >= mid)
         {
-            scanf("%d%d", &x[i], &y[i]);
+            num++;
+            last = cur;
+            cout << "cur: " << cur << endl;
         }
-        sort(x, x + N);
-        sort(y, y + N);
-        for (int i = 0; i < N; i++)
-        {
-            z[i] = x[i] - i;
-        }
-        sort(z, z + N);
-        int ans_x = z[N / 2], ans_y = y[N / 2], res = 0;
-        for (int i = 0; i < N; i++)
-        {
-            res += abs(z[i] - ans_x);
-            res += abs(y[i] - ans_y);
-        }
-        printf("%d", res);
+        i++;
+        cur = i;
     }
+    cout << "num: " << num << endl;
     return 0;
 }

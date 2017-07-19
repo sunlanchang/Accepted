@@ -34,7 +34,7 @@ int main()
         for (int i = 0; i < N; i++)
         {
             //输入double必须用%lf
-            scanf("%f", &cables[i]);
+            scanf("%lf", &cables[i]);
             sum += cables[i];
         }
         double l = 0, r = sum;

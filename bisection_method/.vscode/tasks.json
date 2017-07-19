@@ -6,7 +6,7 @@
     "isShellCommand": true,
     "args": [
         "-g",
-        "${workspaceRoot}/a.cpp"
+        "${workspaceRoot}/b.cpp"
     ],
     "showOutput": "always"
 }
