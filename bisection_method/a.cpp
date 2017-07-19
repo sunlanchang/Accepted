@@ -49,7 +49,7 @@ int main()
                 r = m;
             }
         }
-        printf("%.2lf\n", floor(r * 100) / 100.0);
+        printf("%.2f\n", floor(r * 100) / 100.0);
     }
     return 0;
 }
