@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <cstring>
 #include <cstdio>
 
@@ -6,7 +7,22 @@ using namespace std;
 
 double cables[10010];
 
-;
+bool check(double m, int N, int K)
+{
+    int ans = 0;
+    for (int i = 0; i < N; i++)
+    {
+        ans += cables[i] / m;
+    }
+    if (ans >= K)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 int main()
 {
@@ -20,11 +36,11 @@ int main()
             scanf("%lf", &cables[i]);
             sum += cables[i];
         }
-        int l = 0, r = sum / N + 1, m = -1;
-        while (r - l > 1)
+        double l = 0, r = sum;
+        while (r - l > 1e-5)
         {
-            int m = l + (r - l) / 2;
-            if (check())
+            double m = l + (r - l) / 2.0;
+            if (check(m, N, K))
             {
                 l = m;
             }
@@ -33,7 +49,7 @@ int main()
                 r = m;
             }
         }
-        int ans = r;
+        printf("%.2lf\n", floor(r * 100) / 100.0);
     }
     return 0;
 }
