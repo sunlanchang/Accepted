@@ -1,27 +1,36 @@
+#include <cstdio>
 #include <iostream>
-#include <cmath>
 #include <cstring>
 #include <algorithm>
-#include <cstdio>
-
+#include <cmath>
+#include <vector>
+#include <queue>
+#include <map>
+#include <set>
+#include <ctime>
 using namespace std;
+typedef long long ll;
+#define INF 0x3f3f3f3f
+#define maxn 1111
 int main()
 {
-    int x[9] = {1, 2, 3, 4, 5, 6, 7, 8, 10};
-    int N = 9;
-    int num = 1, cur = 0, last = 0;
-    int mid = 3, i = 0;
-    while (i < N)
+    double L, n, C;
+    while (~scanf("%lf%lf%lf", &L, &n, &C), L >= 0 && n >= 0 && C >= 0)
     {
-        if (x[cur] - x[last] >= mid)
+        double LL = (1.0 + n * C) * L;
+        double l = 0, r = 0.5 * L, h;
+        int t = 100;
+        while (t--)
         {
-            num++;
-            last = cur;
-            cout << "cur: " << cur << endl;
+            h = 0.5 * (l + r);
+            double R = (L * L / 4.0 + h * h) / (2.0 * h);
+            double a = asin(L / (2.0 * R));
+            if (R * a >= 0.5 * LL)
+                r = h;
+            else
+                l = h;
         }
-        i++;
-        cur = i;
+        printf("%.3f\n", h);
     }
-    cout << "num: " << num << endl;
     return 0;
 }
