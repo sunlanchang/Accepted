@@ -49,6 +49,7 @@ int main()
                 r = m;
             }
         }
+        //%lf g++WA， %f g++/c++都能A
         printf("%.2f\n", floor(r * 100) / 100.0);
     }
     return 0;
