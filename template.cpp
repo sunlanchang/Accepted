@@ -1,7 +1,6 @@
 #include <cstdio>
 #include <iostream>
 #include <algorithm>
-#include <cstring>
 #include <ctime>
 
 using namespace std;
@@ -10,6 +9,7 @@ using namespace std;
 
 int main()
 {
+
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     freopen("out.txt", "w", stdout);
