@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define ONLINE_JUDGE
+//#define ONLINE_JUDGE
 
 int main()
 {
