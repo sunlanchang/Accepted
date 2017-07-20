@@ -6,44 +6,39 @@ using namespace std;
 
 int pre[50010] = {0};
 
-int find_root(int x)
+int find(int x)
 {
-    int root = x;
-    while (root != pre[root])
+    if (pre[x] == x)
     {
-        root = pre[root];
+        return x;
     }
-
-    // int x_tmp = x, pre_x;
-    // while (root != pre[x_tmp])
-    // {
-    //     pre_x = pre[x_tmp];
-    //     pre[x_tmp] = root;
-    //     x_tmp = pre_x;
-    // }
-
-    return root;
+    return pre[x] = find(pre[x]);
 }
 
 void join_root(int i, int j)
 {
-    int i_root = find_root(i);
-    int j_root = find_root(j);
+    int i_root = find(i);
+    int j_root = find(j);
     if (i_root != j_root)
     {
         pre[j_root] = i_root;
     }
 }
 
+void init(int id_sum)
+{
+    for (int i = 1; i <= id_sum; i++)
+    {
+        pre[i] = i;
+    }
+}
+
 int main()
 {
     int id_sum, lines, t = 1;
-    while (cin >> id_sum >> lines && (id_sum || lines))
+    while (scanf("%d%d", &id_sum, &lines) && (id_sum || lines))
     {
-        for (int i = 1; i <= id_sum; i++)
-        {
-            pre[i] = i;
-        }
+        init(id_sum);
         while (lines--)
         {
             int stu1, stu2;
@@ -53,7 +48,7 @@ int main()
         map<int, int> m;
         for (int i = 1; i <= id_sum; i++)
         {
-            int i_root = find_root(i);
+            int i_root = find(i);
             m[i_root]++;
         }
         map<int, int>::iterator it;
