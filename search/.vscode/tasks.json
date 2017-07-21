@@ -6,7 +6,7 @@
     "isShellCommand": true,
     "args": [
         "-g",
-        "${workspaceRoot}/c.cpp"
+        "${workspaceRoot}/h.cpp"
         // "-std=c++11"
     ],
     "showOutput": "always"
