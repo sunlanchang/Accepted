@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// #define ONLINE_JUDGE
+#define ONLINE_JUDGE
 
 const int maxn = 11000;
 int N, M, T, dx, dy;
@@ -19,9 +19,9 @@ int y[4] = {-1, 1, 0, 0};
 
 void init()
 {
-    for (int i = 0; i < maxn; i++)
+    for (int i = 0; i < 10; i++)
     {
-        for (int j = 0; j < maxn; j++)
+        for (int j = 0; j < 10; j++)
         {
             m[i][j] = '.';
             visit[i][j] = false;
