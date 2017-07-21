@@ -32,8 +32,9 @@ void init()
 
 void dfs(int i, int j, int step)
 {
-    int temp = T - step - abs(i - j) - abs(dx - dy);
-    if (temp % 2 == 1)
+    int temp1 = abs(i - dx) - abs(j - dy);
+    int temp2 = T - step;
+    if (abs(temp1 - temp2) % 2 == 1 || temp2 < 0)
     {
         return;
     }
@@ -42,18 +43,19 @@ void dfs(int i, int j, int step)
         ANS = true;
         return;
     }
-    visit[i][j] = true;
     for (int ii = 0; ii < 4; ii++)
     {
-        if (step > T || i < 0 || i > N - 1 || j < 0 || j > M - 1 || m[i][j] == 'X')
+        int nx = i + x[ii];
+        int ny = j + y[ii];
+        if (step > T || nx < 0 || nx > N || ny < 0 || ny > M || m[nx][ny] == 'X')
         {
             continue;
         }
-        if (visit[i + x[ii]][j + y[ii]] == false)
+        if (visit[nx][ny] == false)
         {
-            visit[i + x[ii]][j + y[ii]] = true;
-            dfs(i + x[ii], j + y[ii], step + 1);
-            visit[i + x[ii]][j + y[ii]] = false;
+            visit[nx][ny] = true;
+            dfs(nx, ny, step + 1);
+            visit[nx][ny] = false;
         }
     }
 }
@@ -66,13 +68,13 @@ int main()
     freopen("out.txt", "w", stdout);
     long _begin_time = clock();
 #endif
-    while (scanf("%d%d%d", &N, &M, &T) && (N || M || T))
+    while (~scanf("%d%d%d", &N, &M, &T) && (N || M || T))
     {
         init();
         int xx, yy;
-        for (int i = 0; i < N; i++)
+        for (int i = 1; i <= N; i++)
         {
-            for (int j = 0; j < M; j++)
+            for (int j = 1; j <= M; j++)
             {
                 // scanf("%c", &m[i][j]);
                 cin >> m[i][j];
@@ -88,6 +90,7 @@ int main()
                 }
             }
         }
+        visit[xx][yy] = true;
         dfs(xx, yy, 0);
         if (ANS)
             printf("YES\n");
