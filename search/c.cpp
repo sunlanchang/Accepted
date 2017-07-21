@@ -8,7 +8,7 @@
 
 using namespace std;
 
-// #define ONLINE_JUDGE
+#define ONLINE_JUDGE
 char m[400][400];
 int visit[400][400];
 int COUNT, N, M;

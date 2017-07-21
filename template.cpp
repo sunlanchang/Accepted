@@ -19,7 +19,7 @@ int main()
 
 #ifndef ONLINE_JUDGE
     long _end_time = clock();
-    printf("time = %.2f ms\n", double(_end_time - _begin_time) / CLOCKS_PER_SEC * 1000);
+    printf("time = %ld ms\n", _end_time - _begin_time);
 #endif
     return 0;
 }
