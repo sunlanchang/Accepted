@@ -1,4 +1,4 @@
 NO
 YES
 YES
-time = 317 ms
+time = 50 ms

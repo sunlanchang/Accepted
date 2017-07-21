@@ -51,11 +51,7 @@ void dfs(int i, int j, int step)
     {
         int nx = i + x[ii];
         int ny = j + y[ii];
-        if (step > T || nx < 0 || nx > N || ny < 0 || ny > M || m[nx][ny] == 'X')
-        {
-            continue;
-        }
-        if (visit[nx][ny] == false)
+        if (!visit[nx][ny] && nx >= 1 && nx <= N && ny >= 1 && ny <= M && m[nx][ny] != 'X')
         {
             visit[nx][ny] = true;
             dfs(nx, ny, step + 1);
@@ -75,7 +71,7 @@ int main()
     while (~scanf("%d%d%d", &N, &M, &T) && (N || M || T))
     {
         init();
-        int xx, yy;
+        int xx, yy, num_x = 0;
         for (int i = 1; i <= N; i++)
         {
             for (int j = 1; j <= M; j++)
@@ -87,12 +83,21 @@ int main()
                     xx = i;
                     yy = j;
                 }
-                if (m[i][j] == 'D')
+                else if (m[i][j] == 'D')
                 {
                     dx = i;
                     dy = j;
                 }
+                else if (m[i][j] == 'X')
+                {
+                    num_x++;
+                }
             }
+        }
+        if (N * M - num_x < T + 1)
+        {
+            printf("NO\n");
+            continue;
         }
         visit[xx][yy] = true;
         dfs(xx, yy, 0);
