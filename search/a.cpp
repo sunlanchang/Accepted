@@ -43,6 +43,10 @@ void dfs(int i, int j, int step)
         ANS = true;
         return;
     }
+    if (ANS)
+    {
+        return;
+    }
     for (int ii = 0; ii < 4; ii++)
     {
         int nx = i + x[ii];
