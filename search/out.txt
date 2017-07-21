@@ -1,4 +1,0 @@
-NO
-YES
-YES
-time = 50 ms
