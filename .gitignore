@@ -32,3 +32,4 @@
 *.app
 
 /contest_7_15_2017/.vscode/
+*.json
