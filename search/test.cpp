@@ -17,13 +17,14 @@ int main()
     long _begin_time = clock();
 #endif
     int sum = 0;
-    for (int i = 0; i < 1000000000; i++)
+    for (int i = 0; i < 1000; i++)
     {
         ;
     }
+    cout << "test" << endl;
 #ifndef ONLINE_JUDGE
     long _end_time = clock();
-    printf("time = %.1f ms\n", double(_end_time - _begin_time) / CLOCKS_PER_SEC * 1000);
+    printf("time = %.1f ms\n", double(_end_time - _begin_time));
 #endif
     return 0;
 }
