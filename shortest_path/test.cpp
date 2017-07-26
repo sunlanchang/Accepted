@@ -37,7 +37,7 @@ void mix(int x, int y)
 {
     int fx = find(x), fy = find(y);
     if (fx != fy)
-        pre[y] = fx;
+        pre[fy] = fx;
 }
 
 bool cmp(Edge a, Edge b)
@@ -52,13 +52,12 @@ bool cmp(Edge a, Edge b)
 void kruskal()
 {
     Edge e[10010];
-    int i, j, count;
-    double cost;
-    bool clear;
-    count = 0;
-    for (i = 1; i <= N; i++)
+    int count;
+    double ans = 0;
+    count = 1;
+    for (int i = 1; i <= N; i++)
     {
-        for (j = 1; j <= N; j++)
+        for (int j = 1; j <= N; j++)
         {
             double jud = sqrt((po[i].x - po[j].x) * (po[i].x - po[j].x) + (po[i].y - po[j].y) * (po[i].y - po[j].y));
             e[count].u = i;
@@ -70,18 +69,18 @@ void kruskal()
         }
     }
     // cout << "count: " << count << endl;
-    sort(e + 1, e + count + 1, cmp);
-    cost = 0;
-    for (i = 1; i <= count - 1; i++)
+    sort(e + 1, e + 1 + N * N, cmp);
+    ans = 0;
+    for (int i = 1; i <= N * N; i++)
     {
         if (e[i].w != INF && find(e[i].u) != find(e[i].v))
         {
             mix(e[i].u, e[i].v);
-            cost += e[i].w;
+            ans += e[i].w;
         }
     }
-    clear = true;
-    for (i = 2; i <= N; i++)
+    bool clear = true;
+    for (int i = 2; i <= N; i++)
     {
         if (find(1) != find(i))
         {
@@ -90,14 +89,14 @@ void kruskal()
         }
     }
     if (clear)
-        printf("%.1f\n", cost * 100);
+        printf("%.1f\n", ans * 100);
     else
         printf("oh\n");
 }
 int main()
 {
-    freopen("in.txt", "r", stdin);
-    freopen("out.txt", "w", stdout);
+    // freopen("in.txt", "r", stdin);
+    // freopen("out.txt", "w", stdout);
     int i, T; //T组数据
     scanf("%d", &T);
     while (T--)
