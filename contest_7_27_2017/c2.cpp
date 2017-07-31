@@ -1,43 +1,42 @@
-#include <cstdio>
 #include <iostream>
-#include <cstring>
+#include <cstdio>
 #include <algorithm>
-#include <cmath>
 #include <vector>
-#include <queue>
-#include <map>
-#include <set>
-#include <ctime>
+#include <cstring>
+
 using namespace std;
-typedef long long ll;
-#define INF 0x3f3f3f3f
-#define maxn 1111
-int T, n, m[1111];
-ll k, v[1111][111], a[111111];
+
+const long long int INF = 0x3f3f3f3f;
+const int maxn = 1111;
+int n, res, m[maxn];
+long long int k, a[111111], v[maxn][maxn];
+
 int main()
 {
+    // freopen("in.txt", "r", stdin);
+    int T;
     scanf("%d", &T);
     while (T--)
     {
+        res = 0;
         scanf("%d%lld", &n, &k);
-        int res = 0;
-        for (int i = 1; i <= n; i++)
+        for (int i = 0; i < n; i++)
         {
             scanf("%d", &m[i]);
             for (int j = 0; j < m[i]; j++)
-                scanf("%lld", &v[i][j]), a[res++] = v[i][j];
+            {
+                scanf("%lld", &v[i][j]);
+                a[res++] = v[i][j];
+            }
             sort(v[i], v[i] + m[i]);
         }
         sort(a, a + res);
-        ll ans = 0;
-        for (int i = 1; i <= n; i++)
+        long long ans = 0, pos = 0;
+        for (int i = 0; i < n; i++)
             for (int j = 0; j < m[i]; j++)
             {
-                int pos;
-                //所有数中大于k-v[i][j]的
                 pos = upper_bound(a, a + res, k - v[i][j]) - a;
                 ans += (res - pos);
-                //在第i个集合中大于k-v[i][j]的要减掉，因为要从不同的集合取数
                 pos = upper_bound(v[i], v[i] + m[i], k - v[i][j]) - v[i];
                 ans -= (m[i] - pos);
             }

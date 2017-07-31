@@ -23,8 +23,13 @@ void solve()
     {
         for (int j = 0; j < cls[number[1]].stu.size(); j++)
         {
-            int iq1 = cls[first].stu[i], iq2 = cls[number[1]].stu[j];
-            if (iq1 + iq2 > k_iq)
+            int iq1 = cls[first].stu[i], iq2 = cls[second].stu[j];
+            if (iq1 >= k_iq)
+            {
+                ans += cls[number[1]].sum;
+                break;
+            }
+            else if (iq1 + iq2 > k_iq)
                 ans++;
         }
     }
