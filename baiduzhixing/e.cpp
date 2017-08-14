@@ -13,6 +13,7 @@ char letter[maxn];
 // int cnt;
 string str;
 int n, l;
+bool retn;
 
 bool hard_str(string str)
 {
@@ -31,15 +32,23 @@ bool hard_str(string str)
 
 void dfs(int pos, int cnt)
 {
+    // if (retn)
+    //     return;
     if (!hard_str(str))
+    // if (str.size() % 2 == 0 && !hard_str(str))
     {
         // cout << "**: " << str << endl;
         return;
     }
+    if (hard_str(str))
+    {
+        ;
+    }
     if (cnt == n)
     {
         cout << "str: " << str << endl;
-        // cout << "len: " << str.size() << endl;
+        cout << "len: " << str.size() << endl;
+        // retn = true;
         return;
     }
     for (int i = 0; i < l; i++)
@@ -57,6 +66,7 @@ int main()
         // memset(visit, 0, sizeof(visit));
         // cnt = 0;
         string str = "";
+        retn = false;
         dfs(0, 0);
     }
     return 0;
