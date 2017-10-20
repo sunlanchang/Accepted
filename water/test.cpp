@@ -8,12 +8,12 @@ int main()
     f[3][0] = 1;
     for (int i = 4; i < 7654; i++)
     {
-        int k = 0;
+        int tmp = 0;
         for (int j = 0; j < 543; j++)
         {
-            k += f[i - 4][j] + f[i - 3][j] + f[i - 2][j] + f[i - 1][j];
-            f[i][j] = k % 10000;
-            k /= 10000;
+            tmp += f[i - 4][j] + f[i - 3][j] + f[i - 2][j] + f[i - 1][j];
+            f[i][j] = tmp % 10000;
+            tmp /= 10000;
         }
     }
     int n;
