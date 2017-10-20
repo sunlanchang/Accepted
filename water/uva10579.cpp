@@ -6,7 +6,6 @@
 #include <string>
 
 using namespace std;
-
 string add(string str1, string str2) //高精度加法
 {
     string str;
@@ -38,14 +37,23 @@ string add(string str1, string str2) //高精度加法
         str = char(cf + '0') + str;
     return str;
 }
-
-string number;
 int main()
 {
     // freopen("in.txt", "r", stdin);
-    string sum = "0";
-    while (cin >> number && number != "0")
-        sum = add(sum, number);
-    cout << sum << endl;
+    int n;
+    while (~scanf("%d", &n))
+    {
+        string n1 = "1", n2 = "1", n3 = "0";
+        int cnt = n - 2;
+        for (; cnt > 0; cnt--)
+        {
+            n3 = add(n1, n2);
+            n1 = n2, n2 = n3;
+        }
+        if (n == 1 || n == 2)
+            printf("1\n");
+        else
+            cout << n3 << '\n';
+    }
     return 0;
 }

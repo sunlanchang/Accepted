@@ -1,97 +1,31 @@
-#include <cstdio>
-#include <iostream>
-#include <cstring>
-using namespace std;
-int a[1111111], b[1111111], temp[1111111], la, lb;
-void multi()
-{
-    memset(temp, 0, sizeof(temp));
-    for (int i = 0; i < la; i++)
-    {
-        for (int j = 0; j < lb; j++)
-        {
-            //temp为保存一次相乘一次的中间结果
-            temp[i + j] += a[i] * b[j];
-            if (temp[i + j] > 9)
-            {
-                temp[i + j + 1] += temp[i + j] / 10;
-                temp[i + j] %= 10;
-            }
-        }
-        // for (int ii = 0; ii < la + lb; ii++)
-        // {
-        //     cout << temp[ii] << ' ';
-        // }
-        // cout << endl;
-    }
-    if (temp[la + lb - 2] > 9) //进位
-    {
-        temp[la + lb - 1] += temp[la + lb - 2] / 10;
-        temp[la + lb - 2] %= 10;
-        // cout << "进位" << endl;
-    }
-    la = la + lb;
-    for (int i = 0; i < la; i++)
-        a[i] = temp[i];
-    // for (int i = 0; i < 20; i++)
-    // {
-    //     printf("%d ", a[i]);
-    // }
-    // cout << la << endl;
-}
+#include <stdio.h>
+int f[7654][543];
 int main()
 {
-    char s[10];
-    int n;
-    while (~scanf("%s%d", s, &n))
+    f[0][0] = 1;
+    f[1][0] = 1;
+    f[2][0] = 1;
+    f[3][0] = 1;
+    for (int i = 4; i < 7654; i++)
     {
-        int pos = -1; //小数点位置
-        //将小数点去掉后的数字 ‘倒序’ 保存在a[]中，a[]为保存每一次相乘的结果，b[]为被乘数
-        for (int i = 5, j = 0; i >= 0; i--)
-            if (s[i] != '.')
-                a[j] = s[i] - '0', b[j] = a[j], j++;
-            else
-                pos = i;
-        //当有小数点时，la初始化为5（la后续会随着一次一次的相乘变大），被乘数lb是固定的
-        la = lb = (pos == -1 ? 6 : 5);
-        for (int i = 1; i < n; i++)
-            multi();
-        if (pos == -1) //没有小数点直接输出结果即可
+        int k = 0;
+        for (int j = 0; j < 543; j++)
         {
-            for (int i = la - 1; i >= 0; i--)
-                printf("%d", a[i]);
-            printf("\n");
+            k += f[i - 4][j] + f[i - 3][j] + f[i - 2][j] + f[i - 1][j];
+            f[i][j] = k % 10000;
+            k /= 10000;
         }
-        else //有小数点
-        {
-            int l, r;
-            pos = 5 - pos;
-            //结果中小数点位置，小数点原来位置是pos，那么结果小数点的位置应为pos*n
-            pos *= n;                    //结果中小数点位置
-            for (int i = 0; i < la; i++) //后置零
-                if (a[i] != 0)
-                {
-                    l = i;
-                    break;
-                }
-            for (int i = la - 1; i >= 0; i--) //前置零
-                if (a[i] != 0)
-                {
-                    r = i;
-                    break;
-                }
-            if (r < pos)
-                r = pos - 1;
-            if (l > pos)
-                l = pos;
-            for (int i = r; i >= l; i--)
-            {
-                if (i == pos - 1)
-                    printf(".");
-                printf("%d", a[i]);
-            }
-            printf("\n");
-        }
+    }
+    int n;
+    while (~scanf("%d", &n))
+    {
+        int i = 543 - 1;
+        while (f[n][i] == 0 && i >= 0)
+            i--; //去前置0
+        printf("%d", f[n - 1][i]);
+        for (int j = i - 1; j >= 0; j--)
+            printf("%04d", f[n - 1][j]);
+        printf("\n");
     }
     return 0;
 }
