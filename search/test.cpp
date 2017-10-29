@@ -29,13 +29,14 @@ void dfs(int x, int y)
 }
 int main()
 {
+    freopen("in.txt", "r", stdin);
     while (~scanf("%d%d", &n, &m))
     {
         for (int i = 1; i <= n; i++)
             scanf("%s", s[i] + 1);
         memset(mark, 0, sizeof(mark));
         int num1 = 0; //1连通块数量
-        int cnt0 = 0; //被1包围的0连通块数量
+        int cnt0 = 0;
         for (int i = 1; i <= n; i++)
             for (int j = 1; j <= m; j++)
                 if (!mark[i][j])
@@ -44,6 +45,7 @@ int main()
                         num1++;
                     L = m, R = 1, U = n, D = 1;
                     dfs(i, j);
+                    //LRUD分别代表0联通快的范围，若该范围与边界重合则没有被包围
                     if (s[i][j] == '0' && L > 1 && R < m && U > 1 && D < n)
                         cnt0++;
                 }
