@@ -1,4 +1,5 @@
-3
-aeiou
-my name is ignatius
-aaabbbccceee
+6 2
+10 16
+23 12
+-4 3
+20 20
