@@ -1,20 +1,4 @@
-for n in range(int(input())):
-    x = input()
-    a = b = 0
-    for c in x:
-        if '0' <= c <= '9':
-            b = 10*b+int(c)
-        elif b:
-            a, b = x[1:].split('C')
-            b = int(b)
-            v = ""
-            while b:
-                b -= 1
-                v = chr(65 + b % 26)+v
-                b //= 26
-            print(v+a)
-            break
-        else:
-            a = 26 * a + ord(c) - 64
-    else:
-        print("R%dC%d" % (b, a))
+x, y = map(lambda x: ord(x[1])-ord(x[0]), zip(raw_input(), raw_input()))
+a, b, lr, du = abs(x), abs(y), 'LR'[x >= 0], 'DU'[y >= 0]
+m, d = max(a, b), min(a, b)
+print m, '\n', (lr+du+'\n')*d+(lr+'\n')*(a-d)+(du+'\n')*(b-d)
