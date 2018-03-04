@@ -10,6 +10,9 @@ using namespace std;
 int main()
 {
     freopen("in.txt", "r", stdin);
-
+    for (int i = 0; i < 2; i++)
+    {
+        cout << i << endl;
+    }
     return 0;
 }
