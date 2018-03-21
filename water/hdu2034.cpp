@@ -4,7 +4,7 @@
 #include <cstring>
 using namespace std;
 int arr[999999];
-int a[111], b[111], res[111];
+int a[111], res[111];
 int main()
 {
     freopen("in.txt", "r", stdin);
@@ -13,14 +13,14 @@ int main()
     {
         memset(arr, 0x3f, sizeof(arr));
         memset(a, 0, sizeof(a));
-        memset(b, 0, sizeof(b));
         memset(res, 0, sizeof(res));
         for (int i = 0; i < m; i++)
             scanf("%d", &a[i]);
         for (int i = 0; i < n; i++)
         {
-            scanf("%d", &b[i]);
-            arr[b[i]] = 1;
+            int tmp;
+            scanf("%d", &tmp);
+            arr[tmp] = 1;
         }
         int length_inc = 0;
         for (int i = 0; i < m; i++)
