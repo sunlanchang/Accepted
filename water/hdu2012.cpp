@@ -21,7 +21,7 @@ void get_prime()
 }
 int main()
 {
-    freopen("in.txt", "r", stdin);
+    //  freopen("in.txt", "r", stdin);
     get_prime();
     int m, n;
     while (~scanf("%d%d", &m, &n) && (m || n))
@@ -36,7 +36,6 @@ int main()
                 flag = 0;
                 break;
             }
-            cout << prime[res] << " ";
         }
         if (flag == 1)
             printf("OK\n");
