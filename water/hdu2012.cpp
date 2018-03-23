@@ -36,7 +36,7 @@ int main()
                 flag = 0;
                 break;
             }
-            // cout << prime[res] << " ";
+            cout << prime[res] << " ";
         }
         if (flag == 1)
             printf("OK\n");
