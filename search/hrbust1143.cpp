@@ -6,13 +6,13 @@
 
 using namespace std;
 
-int final;
+int final_;
 int vis[maxn][maxn];
 int map[maxn][maxn];
 int s[maxn][maxn];
 int m, n;
 
-int move[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+int move_[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
 struct point
 {
@@ -21,7 +21,7 @@ struct point
 
 bool check(point a)
 {
-    if (a.x >= 1 && a.x <= n && a.y >= 1 && a.y <= m && vis[a.x][a.y] == 0 && map[a.x][a.y] <= final)
+    if (a.x >= 1 && a.x <= n && a.y >= 1 && a.y <= m && vis[a.x][a.y] == 0 && map[a.x][a.y] <= final_)
         return true;
     return false;
 }
@@ -29,7 +29,7 @@ bool check(point a)
 int bfs(int x, int y)
 {
     queue<point> que;
-    point now, temp;
+    point now, next;
     int count = 1;
     now.x = x;
     now.y = y;
@@ -39,21 +39,21 @@ int bfs(int x, int y)
 
     while (!que.empty())
     {
-        temp = que.front();
+        now = que.front();
         que.pop();
-        if (s[temp.x][temp.y] == 1)
+        if (s[now.x][now.y] == 1)
         {
 
             for (int i = 0; i < 4; i++)
             {
-                now.x = temp.x + move[i][0];
-                now.y = temp.y + move[i][1];
-                if (check(now))
+                next.x = now.x + move_[i][0];
+                next.y = now.y + move_[i][1];
+                if (check(next))
                 {
-                    que.push(now);
-                    vis[now.x][now.y] = 1;
+                    que.push(next);
+                    vis[next.x][next.y] = 1;
                     count++;
-                    s[now.x][now.y] = 1;
+                    s[next.x][next.y] = 1;
                 }
             }
         }
@@ -73,7 +73,7 @@ int main()
         for (int i = 1; i <= n; i++)
             for (int j = 1; j <= m; j++)
                 scanf("%d", &map[i][j]);
-        final = map[p1][p2];
+        final_ = map[p1][p2];
         printf("%d\n", bfs(p1, p2));
     }
 }
