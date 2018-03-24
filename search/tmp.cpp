@@ -7,12 +7,18 @@
 #include <cmath>
 using namespace std;
 int a[10];
+struct s
+{
+    int x : 2, y : 3;
+    // s()
+    // {
+    //     x = 0, y = 0;
+    // }
+};
 int main()
 {
     // freopen("in.txt", "r", stdin);
-    memset(a, -1, sizeof(a));
-
-    for (int i = 0; i < 10; i++)
-        cout << a[i] << " ";
+    s tmp;
+    cout << tmp.x << endl;
     return 0;
 }
