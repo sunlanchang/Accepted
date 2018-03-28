@@ -1,79 +1,48 @@
 #include <iostream>
-#include <stdio.h>
-#include <string.h>
-#include <queue>
-#define maxn 1000 + 10
-
+#include <cstring>
+#include <cstdio>
 using namespace std;
-
-int final_;
-int vis[maxn][maxn];
-int map[maxn][maxn];
-int s[maxn][maxn];
-int m, n;
-
-int move_[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-
-struct point
+const int maxn = 1e3 + 10;
+bool vst[maxn][maxn];
+int pic[maxn][maxn];
+int M, N, SX, SY, ANS;
+int dir[4][2] = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+bool check(int x, int y)
 {
-    int x, y;
-};
-
-bool check(point a)
-{
-    if (a.x >= 1 && a.x <= n && a.y >= 1 && a.y <= m && vis[a.x][a.y] == 0 && map[a.x][a.y] <= final_)
+    //注意状态检测先检测边界！如果先检测vst会有数组越界的危险
+    if (x > 0 && x <= M && y > 0 && y <= N && !vst[x][y] && pic[x][y] <= pic[SX][SY])
         return true;
     return false;
 }
-
-int bfs(int x, int y)
+void DFS(int sx, int sy)
 {
-    queue<point> que;
-    point now, next;
-    int count = 1;
-    now.x = x;
-    now.y = y;
-    que.push(now);
-    vis[x][y] = 1;
-    s[x][y] = 1;
-
-    while (!que.empty())
+    vst[sx][sy] = true;
+    ANS++;
+    // 不同于BFS这里没有目标状态的检测
+    for (int i = 0; i < 4; i++)
     {
-        now = que.front();
-        que.pop();
-        if (s[now.x][now.y] == 1)
+        //构造下一次状态
+        int nx = sx + dir[i][0], ny = sy + dir[i][1];
+        //状态检测
+        if (check(nx, ny))
         {
-
-            for (int i = 0; i < 4; i++)
-            {
-                next.x = now.x + move_[i][0];
-                next.y = now.y + move_[i][1];
-                if (check(next))
-                {
-                    que.push(next);
-                    vis[next.x][next.y] = 1;
-                    count++;
-                    s[next.x][next.y] = 1;
-                }
-            }
+            //直接递归，不同于BFS，不需要改变状态数组vst
+            DFS(nx, ny);
         }
     }
-    return count;
 }
-
 int main()
 {
-    freopen("in.txt", "r", stdin);
-    int p1, p2;
-    while (scanf("%d%d%d%d", &n, &m, &p1, &p2) != EOF)
+    // freopen("in.txt", "r", stdin);
+    while (~scanf("%d%d%d%d", &M, &N, &SX, &SY))
     {
-        memset(vis, 0, sizeof(vis));
-        memset(s, 0, sizeof(s));
-
-        for (int i = 1; i <= n; i++)
-            for (int j = 1; j <= m; j++)
-                scanf("%d", &map[i][j]);
-        final_ = map[p1][p2];
-        printf("%d\n", bfs(p1, p2));
+        for (int i = 1; i <= M; i++)
+            for (int j = 1; j <= N; j++)
+                scanf("%d", &pic[i][j]);
+        ANS = 0;
+        memset(vst, false, sizeof(vst));
+        DFS(SX, SY);
+        printf("%d\n", ANS);
     }
+    return 0;
 }
