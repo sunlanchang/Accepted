@@ -8,6 +8,7 @@ char pic[maxn][maxn];
 bool vst[maxn][maxn];
 int dir[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 int N;
+//点的结构体
 struct point
 {
     int x, y;
@@ -16,12 +17,14 @@ struct point
         x = y = 0;
     }
 };
+// 检测点是否超出边界
 bool check(point p)
 {
     if (p.x >= 0 && p.x < N && p.y >= 0 && p.y < N && !vst[p.x][p.y] && pic[p.x][p.y] == '#')
         return true;
     return false;
 }
+// 广度搜索，对每一个#的联通块设置的vst[x][y]为true
 void bfs(int x, int y)
 {
     memset(vst, false, sizeof(vst));
@@ -53,6 +56,7 @@ int main()
     {
         for (int i = 0; i < N; i++)
             scanf("%s", &pic[i]);
+        // 预处理输入的数组，将临近.的#替换为*
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
                 if (pic[i][j] == '.')
@@ -66,6 +70,7 @@ int main()
                             pic[ni][nj] = '*';
                     }
                 }
+        //广度搜索统计#联通块个数
         int ans = 0;
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)

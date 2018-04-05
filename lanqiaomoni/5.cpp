@@ -1,71 +1,46 @@
-#include <cstdio>
-#include <cstring>
-//计算个位
-int ge_wei(int a)
+#include <stdio.h>
+#include <algorithm>
+int quick_select(int a[], int l, int r, int k)
 {
-    if (a % 2 == 0)
-        return (a * 2) % 10;
-    else
-        return (a * 2 + 5) % 10;
-}
-
-//计算进位
-int jin_wei(char *p)
-{
-    char *level[] = {
-        "142857",
-        "285714",
-        "428571",
-        "571428",
-        "714285",
-        "857142"};
-
-    char buf[7];
-    buf[6] = '\0';
-    strncpy(buf, p, 6);
-
-    int i;
-    for (i = 5; i >= 0; i--)
+    int p = rand() % (r - l + 1) + l;
+    int x = a[p];
     {
-        int r = strcmp(level[i], buf);
-        if (r < 0)
-            return i + 1;
-        while (r == 0)
+        int t = a[p];
+        a[p] = a[r];
+        a[r] = t;
+    }
+    int i = l, j = r;
+    while (i < j)
+    {
+        while (i < j && a[i] < x)
+            i++;
+        if (i < j)
         {
-            p += 6;
-            strncpy(buf, p, 6);
-            r = strcmp(level[i], buf);
-            if (r < 0)
-                return i + 1;
-            // ______________________________; //填空
+            a[j] = a[i];
+            j--;
+        }
+        while (i < j && a[j] > x)
+            j--;
+        if (i < j)
+        {
+            a[i] = a[j];
+            i++;
         }
     }
-
-    return 0;
-}
-
-//多位数乘以7
-void f(char *s)
-{
-    int head = jin_wei(s);
-    if (head > 0)
-        printf("%d", head);
-
-    char *p = s;
-    while (*p)
-    {
-        int a = (*p - '0');
-        int x = (ge_wei(a) + jin_wei(p + 1)) % 10;
-        printf("%d", x);
-        p++;
-    }
-
-    printf("\n");
+    a[i] = x;
+    p = i;
+    if (i - l + 1 == k)
+        return a[i];
+    if (i - l + 1 < k)
+        return quick_select(a, l, i + 1, k); //填空
+    else
+        return quick_select(a, l, i - 1, k);
 }
 
 int main()
 {
-    f("428571428571");
-    f("34553834937543");
+    int a[] = {3, 2, 1, 4};
+    for (int i = 1; i <= 4; i++)
+        printf("%d\n", quick_select(a, 0, 3, i));
     return 0;
 }

@@ -1,29 +1,16 @@
-//answer 1799-07-16
-#include <iostream>
 #include <cstdio>
-using namespace std;
-bool run(int year)
-{
-    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
-        return true;
-    return false;
-}
 int main()
 {
-    int day = 8113;
-    // int day = 5343;
-    int cnt_year = 0;
-    for (int i = 1778;; i++)
+    freopen("in.txt", "r", stdin);
+    int sum2 = 0, sum5 = 0, n;
+    while (~scanf("%d", &n))
     {
-        if (day <= 200)
-            break;
-        if (run(i))
-            day -= 366;
-        else
-            day -= 365;
-        cnt_year++;
+        int tmp = n;
+        while (n % 2 == 0)
+            sum2++, n /= 2;
+        while (tmp % 5 == 0)
+            sum5++, tmp /= 5;
     }
-    cout << "year cnt: " << cnt_year << endl;
-    cout << "day: " << day << endl;
+    printf("%d\n", sum5 < sum2 ? sum5 : sum2);
     return 0;
 }
